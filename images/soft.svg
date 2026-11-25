@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="แปรงสีฟันขนนุ่ม แพ็ก 2 ด้าม">
+<rect width="600" height="600" fill="#DCEBF6"/>
+<circle cx="300" cy="300" r="235" fill="#F4FAF8"/>
+<g transform="rotate(-38 300 300) translate(0 -66)">
+<rect x="40" y="278" width="350" height="44" rx="22" fill="#2E7FC1"/>
+<path d="M90 292h110M90 300h110M90 308h110" stroke="#1F5F96" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+<rect x="380" y="288" width="72" height="24" rx="11" fill="#2E7FC1"/>
+<rect x="438" y="266" width="112" height="68" rx="26" fill="#FFFFFF" stroke="#1F5F96" stroke-width="3"/>
+<rect x="449" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="460" y="232" width="7" height="38" rx="3.5" fill="#1F5F96"/><rect x="471" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="482" y="232" width="7" height="38" rx="3.5" fill="#1F5F96"/><rect x="493" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="504" y="232" width="7" height="38" rx="3.5" fill="#1F5F96"/><rect x="515" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="526" y="232" width="7" height="38" rx="3.5" fill="#1F5F96"/><rect x="537" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/></g>
+<g transform="rotate(-38 300 300) translate(0 66)">
+<rect x="40" y="278" width="350" height="44" rx="22" fill="#2FB5A6"/>
+<path d="M90 292h110M90 300h110M90 308h110" stroke="#1E8579" stroke-width="4" stroke-linecap="round" opacity=".55"/>
+<rect x="380" y="288" width="72" height="24" rx="11" fill="#2FB5A6"/>
+<rect x="438" y="266" width="112" height="68" rx="26" fill="#FFFFFF" stroke="#1E8579" stroke-width="3"/>
+<rect x="449" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="460" y="232" width="7" height="38" rx="3.5" fill="#1E8579"/><rect x="471" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="482" y="232" width="7" height="38" rx="3.5" fill="#1E8579"/><rect x="493" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="504" y="232" width="7" height="38" rx="3.5" fill="#1E8579"/><rect x="515" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/><rect x="526" y="232" width="7" height="38" rx="3.5" fill="#1E8579"/><rect x="537" y="232" width="7" height="38" rx="3.5" fill="#FFFFFF"/></g>
+</svg>

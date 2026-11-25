@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ฟันใส | แปรงสีฟันไม้ไผ่และขนนุ่ม</title>
+<meta name="description" content="แปรงสีฟันไม้ไผ่ขนนุ่มพิเศษ และแปรงขนนุ่มแพ็ก 2 ด้าม สั่งออนไลน์ จัดส่งทั่วประเทศ">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪥%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --enamel:#F4FAF8; --ink:#0F2F36; --muted:#4D6A70; --aqua:#2FB5A6; --blue:#1F6FA8;
+  --mint:#DDF1EA; --line:#CFE3DD; --danger:#B3261E; --white:#fff;
+  --head:'Prompt','IBM Plex Sans Thai',sans-serif; --body:'IBM Plex Sans Thai','Prompt',sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--enamel);color:var(--ink);font:400 17px/1.7 var(--body);-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+.wrap{width:min(1080px,100% - 40px);margin-inline:auto}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:6px}
+h1,h2,h3{font-family:var(--head);font-weight:600;line-height:1.25;margin:0}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+.brand{font:600 22px var(--head);text-decoration:none;letter-spacing:.01em}
+.top a.btn-link{font-weight:500;text-decoration:none;border-bottom:2px solid var(--aqua)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:36px 0 56px}
+.hero h1{font-size:clamp(2.4rem,6.2vw,4.3rem);letter-spacing:-.01em}
+.hero p{max-width:30em;color:var(--muted);font-size:1.1rem;margin:22px 0 30px}
+.btn{display:inline-block;background:var(--ink);color:#fff;border:0;border-radius:999px;padding:14px 30px;font:600 17px var(--head);cursor:pointer;text-decoration:none;transition:background .15s}
+.btn:hover{background:var(--blue)}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.hero-art{width:100%;max-width:520px;justify-self:center}
+.hero-art svg{width:100%;height:auto;overflow:visible}
+.bristle{transform-box:fill-box;transform-origin:50% 100%;animation:sweep .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes sweep{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.stripe{height:12px;background:repeating-linear-gradient(135deg,var(--blue) 0 16px,#fff 16px 32px,var(--aqua) 32px 48px)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;padding:48px 0}
+.facts div{border-top:2px solid var(--ink);padding-top:14px}
+.facts h3{font-size:1.15rem;margin-bottom:6px}
+.facts p{margin:0;color:var(--muted)}
+
+/* products */
+.section-title{font-size:clamp(1.7rem,4vw,2.4rem);margin:24px 0 8px}
+.lead{color:var(--muted);margin:0 0 20px}
+.item{display:grid;grid-template-columns:180px 1fr auto;gap:28px;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}
+.item:first-of-type{border-top:1px solid var(--line)}
+.item img{width:180px;height:180px;border-radius:22px;object-fit:cover;background:var(--mint)}
+.item h3{font-size:1.35rem}
+.item .sku{font-size:.85rem;color:var(--muted)}
+.item .desc{margin:6px 0 10px;color:var(--muted);max-width:34em}
+.price{font:600 1.5rem var(--head)}
+.stock{font-size:.9rem;margin-left:10px;color:var(--muted)}
+.stock.low{color:var(--danger)}
+.qty{display:flex;align-items:center;gap:0;border:2px solid var(--ink);border-radius:999px;overflow:hidden}
+.qty button{width:46px;height:46px;border:0;background:transparent;font:600 22px var(--head);cursor:pointer;color:var(--ink)}
+.qty button:hover:not([disabled]){background:var(--mint)}
+.qty button[disabled]{opacity:.3;cursor:not-allowed}
+.qty output{min-width:38px;text-align:center;font:600 18px var(--head)}
+
+/* checkout */
+.checkout{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;padding:56px 0 80px;align-items:start}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-weight:500;font-size:.95rem}
+input,textarea{font:400 17px var(--body);color:var(--ink);padding:12px 14px;border:2px solid var(--line);border-radius:12px;background:#fff;width:100%}
+input:focus,textarea:focus{border-color:var(--blue);outline:none}
+textarea{min-height:92px;resize:vertical}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.hp{position:absolute;left:-9999px;height:0;overflow:hidden}
+.summary{position:sticky;top:20px;background:#fff;border:2px solid var(--ink);border-radius:20px;padding:22px}
+.summary h3{font-size:1.2rem;margin-bottom:12px}
+.summary ul{list-style:none;margin:0 0 14px;padding:0}
+.summary li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.summary .empty{color:var(--muted);border:0}
+.summary .total{display:flex;justify-content:space-between;font:600 1.3rem var(--head);margin:6px 0 16px}
+.note{font-size:.9rem;color:var(--muted);margin:10px 0 0}
+.msg{padding:12px 14px;border-radius:12px;font-weight:500;display:none}
+.msg.err{display:block;background:#FDECEA;color:var(--danger)}
+.msg.ok{display:block;background:var(--mint);color:var(--ink)}
+.done{display:none;background:var(--mint);border-radius:22px;padding:32px;text-align:center}
+.done h2{font-size:1.8rem;margin-bottom:8px}
+.done .oid{font:600 2rem var(--head);letter-spacing:.04em;margin:10px 0}
+
+footer{background:var(--ink);color:#cfe3dd;padding:28px 0;font-size:.95rem}
+
+/* sticky bar (mobile) */
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);color:#fff;padding:12px 20px;display:none;align-items:center;justify-content:space-between;gap:12px;z-index:5}
+.bar .btn{background:#fff;color:var(--ink);padding:10px 22px}
+.bar.show{display:flex}
+
+@media (max-width:820px){
+  .hero{grid-template-columns:1fr;padding-top:12px}
+  .hero-art{max-width:360px;order:-1}
+  .facts{grid-template-columns:1fr;gap:20px;padding:32px 0}
+  .item{grid-template-columns:110px 1fr;gap:16px}
+  .item img{width:110px;height:110px;border-radius:16px}
+  .item .qty{grid-column:1 / -1;justify-self:start}
+  .checkout{grid-template-columns:1fr;gap:28px;padding-bottom:110px}
+  .summary{position:static}
+  .row2{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){.bristle{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#">ฟันใส</a>
+    <a class="btn-link" href="#products">ดูสินค้า</a>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>แปรงที่นุ่มพอ<br>ให้เหงือกสบายทุกเช้า</h1>
+      <p>แปรงสีฟันไม้ไผ่ย่อยสลายได้ และแปรงขนนุ่มหัวเล็กแพ็ก 2 ด้าม เลือกจำนวนที่ต้องการ กรอกที่อยู่ แล้วรอรับที่บ้าน</p>
+      <a class="btn" href="#products">เลือกแปรง</a>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 600 600">
+        <circle cx="300" cy="300" r="270" fill="#DDF1EA"/>
+        <g transform="rotate(-38 300 300)">
+          <rect x="30" y="268" width="360" height="64" rx="32" fill="#C99B5F"/>
+          <path d="M120 268v64M215 268v64M310 268v64" stroke="#A97B42" stroke-width="6" opacity=".7"/>
+          <rect x="378" y="284" width="76" height="32" rx="14" fill="#B98A50"/>
+          <rect x="436" y="254" width="130" height="92" rx="36" fill="#F2E6D0"/>
+          <g fill="#2B3A3F">
+            <rect class="bristle" style="animation-delay:.05s" x="448" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.10s" x="462" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.15s" x="476" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.20s" x="490" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.25s" x="504" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.30s" x="518" y="200" width="9" height="58" rx="4.5"/>
+            <rect class="bristle" style="animation-delay:.35s" x="532" y="200" width="9" height="58" rx="4.5"/>
+          </g>
+        </g>
+      </svg>
+    </div>
+  </section>
+</div>
+
+<div class="stripe" role="presentation"></div>
+
+<main class="wrap">
+  <section class="facts" aria-label="จุดเด่น">
+    <div><h3>ด้ามไม้ไผ่ธรรมชาติ</h3><p>ย่อยสลายได้ ลดขยะพลาสติกในห้องน้ำ</p></div>
+    <div><h3>ขนนุ่ม 0.01 มม.</h3><p>แปรงได้ทั่วถึงโดยไม่ระคายเหงือก</p></div>
+    <div><h3>หัวเล็ก เข้าซอกฟัน</h3><p>เข้าถึงฟันซี่ในได้ง่ายขึ้น</p></div>
+  </section>
+
+  <section id="products" aria-labelledby="ptitle">
+    <h2 class="section-title" id="ptitle">เลือกแปรงของคุณ</h2>
+    <p class="lead">กดปุ่ม + เพื่อเพิ่มจำนวน ราคารวมจะแสดงด้านล่าง</p>
+    <div id="list" aria-live="polite"><p class="lead">กำลังโหลดสินค้า…</p></div>
+  </section>
+
+  <section class="checkout" id="checkout" aria-labelledby="ctitle">
+    <div>
+      <h2 class="section-title" id="ctitle">ที่อยู่สำหรับจัดส่ง</h2>
+      <form id="form" novalidate>
+        <label>ชื่อ-นามสกุลผู้รับ
+          <input name="name" autocomplete="name" required maxlength="100">
+        </label>
+        <label>เบอร์โทร
+          <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812345678" required maxlength="12">
+        </label>
+        <label>ที่อยู่ (บ้านเลขที่ ถนน ตำบล/แขวง อำเภอ/เขต)
+          <textarea name="address" autocomplete="street-address" required maxlength="300"></textarea>
+        </label>
+        <div class="row2">
+          <label>จังหวัด
+            <input name="province" list="provinces" autocomplete="address-level1" required maxlength="60">
+            <datalist id="provinces"></datalist>
+          </label>
+          <label>รหัสไปรษณีย์
+            <input name="postcode" inputmode="numeric" autocomplete="postal-code" pattern="\d{5}" maxlength="5" required>
+          </label>
+        </div>
+        <div class="hp" aria-hidden="true"><label>เว็บไซต์<input name="website" tabindex="-1" autocomplete="off"></label></div>
+        <div id="msg" class="msg" role="alert"></div>
+        <div><button class="btn" id="submit" type="submit">สั่งซื้อ</button></div>
+        <p class="note">หลังสั่งซื้อ ทางร้านจะติดต่อกลับทางเบอร์โทรเพื่อแจ้งวิธีชำระเงิน</p>
+      </form>
+      <div class="done" id="done" tabindex="-1">
+        <h2>ได้รับคำสั่งซื้อแล้ว</h2>
+        <div class="oid" id="oid"></div>
+        <p>เก็บเลขออเดอร์นี้ไว้สอบถามกับทางร้าน</p>
+        <button class="btn" type="button" id="again">สั่งซื้อเพิ่ม</button>
+      </div>
+    </div>
+
+    <aside class="summary" aria-label="สรุปรายการสั่งซื้อ">
+      <h3>รายการของคุณ</h3>
+      <ul id="sumList"><li class="empty">ยังไม่ได้เลือกสินค้า</li></ul>
+      <div class="total"><span>รวม</span><span id="sumTotal">฿0</span></div>
+      <p class="note">ราคายังไม่รวมค่าจัดส่ง (ถ้ามี) ทางร้านจะแจ้งก่อนชำระเงิน</p>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">© ฟันใส — แปรงสีฟันไม้ไผ่และขนนุ่ม</div>
+</footer>
+
+<div class="bar" id="bar">
+  <div><strong id="barCount">0</strong> ชิ้น · <strong id="barTotal">฿0</strong></div>
+  <a class="btn" href="#checkout">กรอกที่อยู่</a>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const fmt = (n) => '฿' + Number(n).toLocaleString('th-TH');
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const MAX_QTY = 20;
+let products = [];
+let cart = {}; // sku -> qty
+
+const PROVINCES = 'กรุงเทพมหานคร,กระบี่,กาญจนบุรี,กาฬสินธุ์,กำแพงเพชร,ขอนแก่น,จันทบุรี,ฉะเชิงเทรา,ชลบุรี,ชัยนาท,ชัยภูมิ,ชุมพร,เชียงราย,เชียงใหม่,ตรัง,ตราด,ตาก,นครนายก,นครปฐม,นครพนม,นครราชสีมา,นครศรีธรรมราช,นครสวรรค์,นนทบุรี,นราธิวาส,น่าน,บึงกาฬ,บุรีรัมย์,ปทุมธานี,ประจวบคีรีขันธ์,ปราจีนบุรี,ปัตตานี,พระนครศรีอยุธยา,พะเยา,พังงา,พัทลุง,พิจิตร,พิษณุโลก,เพชรบุรี,เพชรบูรณ์,แพร่,ภูเก็ต,มหาสารคาม,มุกดาหาร,แม่ฮ่องสอน,ยโสธร,ยะลา,ร้อยเอ็ด,ระนอง,ระยอง,ราชบุรี,ลพบุรี,ลำปาง,ลำพูน,เลย,ศรีสะเกษ,สกลนคร,สงขลา,สตูล,สมุทรปราการ,สมุทรสงคราม,สมุทรสาคร,สระแก้ว,สระบุรี,สิงห์บุรี,สุโขทัย,สุพรรณบุรี,สุราษฎร์ธานี,สุรินทร์,หนองคาย,หนองบัวลำภู,อ่างทอง,อำนาจเจริญ,อุดรธานี,อุตรดิตถ์,อุทัยธานี,อุบลราชธานี'.split(',');
+$('#provinces').innerHTML = PROVINCES.map((p) => `<option value="${esc(p)}">`).join('');
+
+const imgSrc = (p) => /^https?:\/\//.test(p.image || '') ? p.image : '/' + String(p.image || '').replace(/^\/+/, '');
+
+async function loadProducts() {
+  try {
+    const r = await fetch('/api/products');
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error);
+    products = d.products;
+  } catch (e) {
+    // ยังไม่ได้ต่อ Google Sheet → ใช้ข้อมูลตัวอย่างเพื่อดูหน้าตา
+    console.warn('ใช้ข้อมูลตัวอย่าง:', e.message);
+    const r = await fetch('/data/products.sample.json');
+    products = (await r.json()).products;
+  }
+  renderList();
+}
+
+function renderList() {
+  if (!products.length) { $('#list').innerHTML = '<p class="lead">ยังไม่มีสินค้าที่เปิดขาย</p>'; return; }
+  $('#list').innerHTML = products.map((p) => {
+    const out = p.stock <= 0;
+    const low = !out && p.stock <= 10;
+    return `<article class="item" data-sku="${esc(p.sku)}">
+      <img src="${esc(imgSrc(p))}" alt="${esc(p.name)}" width="180" height="180" loading="lazy">
+      <div>
+        <h3>${esc(p.name)}</h3>
+        <div class="sku">รหัสสินค้า ${esc(p.sku)}</div>
+        <p class="desc">${esc(p.desc)}</p>
+        <span class="price">${fmt(p.price)}</span>
+        <span class="stock ${low || out ? 'low' : ''}">${out ? 'สินค้าหมด' : low ? 'เหลือ ' + p.stock + ' ชิ้น' : ''}</span>
+      </div>
+      <div class="qty" role="group" aria-label="จำนวน ${esc(p.name)}">
+        <button type="button" data-d="-1" aria-label="ลดจำนวน" disabled>−</button>
+        <output aria-live="polite">0</output>
+        <button type="button" data-d="1" aria-label="เพิ่มจำนวน" ${out ? 'disabled' : ''}>+</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+$('#list').addEventListener('click', (e) => {
+  const b = e.target.closest('button[data-d]');
+  if (!b) return;
+  const row = b.closest('.item');
+  const p = products.find((x) => x.sku === row.dataset.sku);
+  const max = Math.min(p.stock, MAX_QTY);
+  const q = Math.max(0, Math.min(max, (cart[p.sku] || 0) + Number(b.dataset.d)));
+  if (q) cart[p.sku] = q; else delete cart[p.sku];
+  row.querySelector('output').textContent = q;
+  row.querySelector('[data-d="-1"]').disabled = q === 0;
+  row.querySelector('[data-d="1"]').disabled = q >= max;
+  renderSummary();
+});
+
+function cartLines() {
+  return Object.keys(cart).map((sku) => ({ p: products.find((x) => x.sku === sku), q: cart[sku] })).filter((l) => l.p);
+}
+
+function renderSummary() {
+  const lines = cartLines();
+  const total = lines.reduce((s, l) => s + l.p.price * l.q, 0);
+  const count = lines.reduce((s, l) => s + l.q, 0);
+  $('#sumList').innerHTML = lines.length
+    ? lines.map((l) => `<li><span>${esc(l.p.name)} × ${l.q}</span><span>${fmt(l.p.price * l.q)}</span></li>`).join('')
+    : '<li class="empty">ยังไม่ได้เลือกสินค้า</li>';
+  $('#sumTotal').textContent = fmt(total);
+  $('#barCount').textContent = count;
+  $('#barTotal').textContent = fmt(total);
+  $('#bar').classList.toggle('show', count > 0);
+}
+
+function showMsg(text, kind) {
+  const m = $('#msg');
+  m.textContent = text;
+  m.className = 'msg ' + kind;
+}
+
+$('#form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const customer = {
+    name: f.get('name').trim(),
+    phone: f.get('phone').replace(/\D/g, ''),
+    address: f.get('address').trim(),
+    province: f.get('province').trim(),
+    postcode: f.get('postcode').replace(/\D/g, ''),
+  };
+  const items = Object.keys(cart).map((sku) => ({ sku, qty: cart[sku] }));
+  if (!items.length) return showMsg('เลือกสินค้าอย่างน้อย 1 ชิ้นก่อนสั่งซื้อ', 'err');
+  if (!customer.name || !customer.address || !customer.province) return showMsg('กรอกชื่อ ที่อยู่ และจังหวัดให้ครบ', 'err');
+  if (!/^0\d{8,9}$/.test(customer.phone)) return showMsg('เบอร์โทรต้องขึ้นต้นด้วย 0 และมี 9–10 หลัก', 'err');
+  if (!/^\d{5}$/.test(customer.postcode)) return showMsg('รหัสไปรษณีย์ต้องมี 5 หลัก', 'err');
+
+  const btn = $('#submit');
+  btn.disabled = true; btn.textContent = 'กำลังส่ง…';
+  showMsg('', '');
+  try {
+    const r = await fetch('/api/order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ customer, items, website: f.get('website') }),
+    });
+    const d = await r.json();
+    if (!d.ok) throw new Error(d.error || 'ส่งคำสั่งซื้อไม่สำเร็จ');
+    $('#oid').textContent = d.orderId;
+    $('#form').style.display = 'none';
+    $('#done').style.display = 'block';
+    $('#done').focus();
+    cart = {}; renderSummary();
+    loadProducts(); // รีเฟรชสต็อก
+  } catch (err) {
+    showMsg(err.message + ' — ลองใหม่อีกครั้ง', 'err');
+  } finally {
+    btn.disabled = false; btn.textContent = 'สั่งซื้อ';
+  }
+});
+
+$('#again').addEventListener('click', () => {
+  $('#done').style.display = 'none';
+  $('#form').style.display = 'grid';
+  $('#form').reset();
+  document.getElementById('products').scrollIntoView();
+});
+
+loadProducts();
+</script>
+</body>
+</html>

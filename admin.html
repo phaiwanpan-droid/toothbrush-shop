@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>หลังร้าน | หยิบ แพ็ก ปะหน้า</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600&family=Prompt:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0F2F36;--muted:#4D6A70;--line:#CFE3DD;--mint:#DDF1EA;--blue:#1F6FA8;--danger:#B3261E;--ok:#1E7B4F;--bg:#F4FAF8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.6 'IBM Plex Sans Thai',sans-serif}
+h1,h2,h3{font-family:'Prompt','IBM Plex Sans Thai',sans-serif;font-weight:600;margin:0;line-height:1.3}
+img{display:block}
+button,input{font:inherit}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:6px}
+.wrap{width:min(1000px,100% - 32px);margin:0 auto;padding:20px 0 60px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.btn{background:var(--ink);color:#fff;border:0;border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer}
+.btn:hover:not([disabled]){background:var(--blue)}
+.btn.ghost{background:#fff;color:var(--ink);border:2px solid var(--ink)}
+.btn.ok{background:var(--ok)}
+.btn.warn{background:#fff;color:var(--danger);border:2px solid var(--danger)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tab{background:#fff;border:2px solid var(--line);border-radius:999px;padding:8px 18px;cursor:pointer;font-weight:500}
+.tab[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tab .n{background:var(--mint);color:var(--ink);border-radius:999px;padding:0 8px;margin-left:6px;font-size:.85rem}
+.tab[aria-selected="true"] .n{background:#fff}
+.card{background:#fff;border:2px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.line{display:flex;align-items:center;gap:14px;padding:8px 0;border-bottom:1px dashed var(--line)}
+.line:last-child{border-bottom:0}
+.line img{width:56px;height:56px;border-radius:10px;object-fit:cover;background:var(--mint);flex:none}
+.line .grow{flex:1;min-width:0}
+.sku{font:600 .95rem 'Prompt',sans-serif}
+.muted{color:var(--muted);font-size:.9rem}
+.qty{font:600 1.6rem 'Prompt',sans-serif;min-width:64px;text-align:right}
+.oid{font:600 1.15rem 'Prompt',sans-serif}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spacer{flex:1}
+.field{border:2px solid var(--line);border-radius:10px;padding:9px 12px;background:#fff;min-width:0}
+.field:focus{border-color:var(--blue);outline:none}
+.scanline{cursor:pointer;border-radius:10px}
+.scanline:hover{background:var(--mint)}
+.prog{font:600 1.2rem 'Prompt',sans-serif;min-width:64px;text-align:right}
+.prog.done{color:var(--ok)}
+.flash{background:#FDECEA;color:var(--danger);border-radius:10px;padding:8px 12px;margin:8px 0;font-weight:500}
+.empty{color:var(--muted);padding:30px 0;text-align:center}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:999px;display:none;z-index:10}
+.toast.err{background:var(--danger)}
+.login{max-width:360px;margin:12vh auto;background:#fff;border:2px solid var(--ink);border-radius:18px;padding:24px;display:grid;gap:12px}
+.status{font-size:.8rem;border-radius:999px;padding:2px 10px;background:var(--mint);font-weight:600}
+
+/* ใบปะหน้า A6 (พิมพ์) */
+#printArea{display:none}
+.label{width:105mm;height:148mm;padding:7mm;border:1px solid #000;page-break-after:always;break-after:page;font:14px/1.45 'IBM Plex Sans Thai',sans-serif;color:#000;display:flex;flex-direction:column;gap:3mm;overflow:hidden}
+.label .from{font-size:11px;border-bottom:2px solid #000;padding-bottom:2mm}
+.label .to-h{font-size:11px;margin-top:1mm}
+.label .to{font:600 20px/1.3 'Prompt',sans-serif}
+.label .addr{font-size:15px}
+.label .pc{font:600 26px 'Prompt',sans-serif;letter-spacing:.12em}
+.label .tel{font:600 17px 'Prompt',sans-serif}
+.label .meta{margin-top:auto;border-top:2px solid #000;padding-top:2mm;font-size:12px}
+.label .meta b{font:600 18px 'Prompt',sans-serif}
+@media print{
+  @page{size:105mm 148mm;margin:0}
+  body{background:#fff}
+  #app,.toast{display:none!important}
+  #printArea{display:block}
+  .label{border:0}
+}
+</style>
+</head>
+<body>
+
+<div id="loginBox" class="login" hidden>
+  <h1>หลังร้าน</h1>
+  <label>รหัสผ่านเจ้าของร้าน<br><input id="token" type="password" class="field" style="width:100%" autocomplete="current-password"></label>
+  <button class="btn" id="loginBtn">เข้าสู่ระบบ</button>
+  <div id="loginErr" class="muted" style="color:var(--danger)"></div>
+</div>
+
+<div id="app" class="wrap" hidden>
+  <div class="head">
+    <h1>หยิบ · แพ็ก · ปะหน้า</h1>
+    <div class="row">
+      <button class="btn ghost" id="reload">รีเฟรช</button>
+      <button class="btn ghost" id="logout">ออก</button>
+    </div>
+  </div>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div id="view"></div>
+</div>
+<div id="toast" class="toast" role="status"></div>
+<div id="printArea"></div>
+
+<script>
+/* ===== แก้ข้อมูลผู้ส่งตรงนี้ (แสดงบนใบปะหน้า) ===== */
+const SHOP = {
+  name: 'ฟันใส แปรงสีฟัน',
+  address: '123 ถนนตัวอย่าง แขวงตัวอย่าง เขตตัวอย่าง กรุงเทพฯ 10110',
+  phone: '081-234-5678',
+};
+/* ============================================== */
+
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt = (n) => '฿' + Number(n).toLocaleString('th-TH');
+const imgSrc = (p) => !p || !p.image ? '' : /^https?:\/\//.test(p.image) ? p.image : '/' + p.image.replace(/^\/+/, '');
+
+let token = sessionStorage.getItem('adminToken') || '';
+let orders = [], products = [];
+let tab = 'pick';
+const scanned = {};      // orderId -> {sku: count}
+const picked = new Set(); // orderId ที่ติ๊กเลือกในแท็บหยิบ
+const labelSel = new Set();
+const tracking = {};     // orderId -> เลขพัสดุที่พิมพ์ไว้
+
+const TABS = [
+  { id: 'pick', label: 'ใบหยิบของ', status: 'new' },
+  { id: 'pack', label: 'ตรวจ + แพ็ก', status: 'picked' },
+  { id: 'label', label: 'ใบปะหน้า', status: 'packed' },
+  { id: 'done', label: 'ส่งแล้ว', status: 'shipped' },
+];
+
+function toast(t, err) {
+  const el = $('#toast');
+  el.textContent = t; el.className = 'toast' + (err ? ' err' : ''); el.style.display = 'block';
+  clearTimeout(toast.t); toast.t = setTimeout(() => (el.style.display = 'none'), 2800);
+}
+
+async function api(path, opt = {}) {
+  const r = await fetch(path, { ...opt, headers: { 'Content-Type': 'application/json', 'x-admin-token': token } });
+  if (r.status === 401) { logout(); throw new Error('รหัสผ่านไม่ถูกต้อง'); }
+  const d = await r.json();
+  if (!d.ok) throw new Error(d.error || 'เกิดข้อผิดพลาด');
+  return d;
+}
+
+async function load() {
+  const d = await api('/api/orders');
+  orders = d.orders; products = d.products;
+  render();
+}
+
+function logout() {
+  sessionStorage.removeItem('adminToken'); token = '';
+  $('#app').hidden = true; $('#loginBox').hidden = false;
+}
+$('#logout').onclick = logout;
+$('#reload').onclick = () => load().then(() => toast('รีเฟรชแล้ว')).catch((e) => toast(e.message, true));
+$('#loginBtn').onclick = async () => {
+  token = $('#token').value.trim();
+  sessionStorage.setItem('adminToken', token);
+  $('#loginErr').textContent = '';
+  try { await load(); $('#loginBox').hidden = true; $('#app').hidden = false; }
+  catch (e) { $('#loginErr').textContent = e.message; }
+};
+$('#token').addEventListener('keydown', (e) => { if (e.key === 'Enter') $('#loginBtn').click(); });
+
+const byStatus = (s) => orders.filter((o) => o.status === s);
+const pinfo = (sku) => products[sku] || { name: '(ไม่พบสินค้าในชีต)', image: '' };
+
+function lineHtml(sku, qty, extra = '') {
+  const p = pinfo(sku);
+  return `<div class="line">
+    ${p.image ? `<img src="${esc(imgSrc(p))}" alt="" width="56" height="56">` : ''}
+    <div class="grow"><div class="sku">${esc(sku)}</div><div class="muted">${esc(p.name)}</div></div>${extra || `<div class="qty">× ${qty}</div>`}
+  </div>`;
+}
+
+function render() {
+  $('#tabs').innerHTML = TABS.map((t) => `<button class="tab" role="tab" data-tab="${t.id}" aria-selected="${t.id === tab}">${t.label}<span class="n">${byStatus(t.status).length}</span></button>`).join('');
+  const fn = { pick: viewPick, pack: viewPack, label: viewLabel, done: viewDone }[tab];
+  $('#view').innerHTML = fn();
+}
+$('#tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-tab]'); if (!b) return;
+  tab = b.dataset.tab; render();
+});
+
+/* ---------- 1) ใบหยิบของ: รวมจำนวนตาม SKU ---------- */
+function viewPick() {
+  const list = byStatus('new');
+  if (!list.length) return '<div class="empty">ไม่มีออเดอร์ใหม่ที่ต้องหยิบ</div>';
+  const sum = {};
+  list.forEach((o) => o.items.forEach((i) => { sum[i.sku] = (sum[i.sku] || 0) + i.qty; }));
+  const skus = Object.keys(sum).sort();
+  return `<div class="card"><h2>หยิบรวมทั้งหมด ${list.length} ออเดอร์</h2>
+    ${skus.map((s) => lineHtml(s, sum[s])).join('')}</div>
+    <h2 style="margin:18px 0 10px">แยกตามออเดอร์</h2>
+    ${list.map((o) => `<div class="card">
+      <div class="row"><label class="row"><input type="checkbox" data-pick="${esc(o.orderId)}" ${picked.has(o.orderId) ? 'checked' : ''}> <span class="oid">${esc(o.orderId)}</span></label>
+        <span class="muted">${esc(o.name)}</span><span class="spacer"></span><button class="btn warn" data-cancel="${esc(o.orderId)}">ยกเลิก</button></div>
+      ${o.items.map((i) => lineHtml(i.sku, i.qty)).join('')}
+    </div>`).join('')}
+    <div class="row"><button class="btn ghost" data-pickall>เลือกทั้งหมด</button>
+    <button class="btn ok" data-markpicked ${picked.size ? '' : 'disabled'}>หยิบครบแล้ว (${picked.size} ออเดอร์) → ไปตรวจ/แพ็ก</button></div>`;
+}
+
+/* ---------- 2) ตรวจ + แพ็ก: สแกน/แตะ SKU ให้ครบตามจำนวน ---------- */
+function viewPack() {
+  const list = byStatus('picked');
+  if (!list.length) return '<div class="empty">ยังไม่มีออเดอร์ที่รอแพ็ก</div>';
+  return list.map((o) => {
+    const sc = scanned[o.orderId] || {};
+    const full = o.items.every((i) => (sc[i.sku] || 0) === i.qty);
+    return `<div class="card" data-order="${esc(o.orderId)}">
+      <div class="row"><span class="oid">${esc(o.orderId)}</span><span class="muted">${esc(o.name)}</span><span class="spacer"></span>
+        <input class="field" data-scan placeholder="สแกน/พิมพ์ SKU แล้วกด Enter" aria-label="สแกน SKU ของ ${esc(o.orderId)}" style="width:260px"></div>
+      <div class="flash" data-flash hidden></div>
+      ${o.items.map((i) => {
+        const n = sc[i.sku] || 0;
+        return `<div class="scanline" data-tap="${esc(i.sku)}" tabindex="0" role="button" aria-label="นับ ${esc(i.sku)} เพิ่ม 1">${lineHtml(i.sku, i.qty, `<div class="prog ${n === i.qty ? 'done' : ''}">${n}/${i.qty}</div>`)}</div>`;
+      }).join('')}
+      <div class="row" style="margin-top:10px"><span class="muted">แตะแถวสินค้าเพื่อนับทีละชิ้น หรือยิงบาร์โค้ด/พิมพ์ SKU</span><span class="spacer"></span>
+        <button class="btn ok" data-markpacked="${esc(o.orderId)}" ${full ? '' : 'disabled'}>แพ็กเสร็จแล้ว</button></div>
+    </div>`;
+  }).join('');
+}
+
+function scanSku(orderId, sku, cardEl) {
+  const o = orders.find((x) => x.orderId === orderId);
+  const item = o.items.find((i) => i.sku.toLowerCase() === sku.trim().toLowerCase());
+  const flash = cardEl.querySelector('[data-flash]');
+  if (!item) { flash.textContent = `SKU "${sku}" ไม่อยู่ในออเดอร์นี้ — หยิบผิดหรือสลับออเดอร์`; flash.hidden = false; return; }
+  const sc = (scanned[orderId] = scanned[orderId] || {});
+  if ((sc[item.sku] || 0) >= item.qty) { flash.textContent = `${item.sku} ครบ ${item.qty} ชิ้นแล้ว — เกินจำนวน`; flash.hidden = false; return; }
+  sc[item.sku] = (sc[item.sku] || 0) + 1;
+  render();
+  const el = document.querySelector(`[data-order="${CSS.escape(orderId)}"] [data-scan]`);
+  if (el) el.focus();
+}
+
+/* ---------- 3) ใบปะหน้า ---------- */
+function viewLabel() {
+  const list = byStatus('packed');
+  if (!list.length) return '<div class="empty">ยังไม่มีออเดอร์ที่แพ็กเสร็จ</div>';
+  return `<div class="row" style="margin-bottom:12px">
+      <button class="btn ghost" data-labelall>เลือกทั้งหมด</button>
+      <button class="btn" data-print ${labelSel.size ? '' : 'disabled'}>พิมพ์ใบปะหน้า (${labelSel.size}) ขนาด A6</button>
+    </div>
+    ${list.map((o) => `<div class="card">
+      <div class="row"><label class="row"><input type="checkbox" data-label="${esc(o.orderId)}" ${labelSel.has(o.orderId) ? 'checked' : ''}><span class="oid">${esc(o.orderId)}</span></label>
+        <span class="spacer"></span>
+        <input class="field" data-track="${esc(o.orderId)}" placeholder="เลขพัสดุ (ใส่ได้ภายหลัง)" value="${esc(tracking[o.orderId] || '')}" style="width:220px" aria-label="เลขพัสดุ ${esc(o.orderId)}">
+        <button class="btn ok" data-markshipped="${esc(o.orderId)}">ส่งแล้ว</button></div>
+      <div style="margin-top:8px"><b>${esc(o.name)}</b> · ${esc(o.phone)}<br>${esc(o.address)} ${esc(o.province)} ${esc(o.postcode)}</div>
+      <div class="muted">${o.items.map((i) => esc(i.sku) + ' ×' + i.qty).join(', ')}</div>
+    </div>`).join('')}`;
+}
+
+function labelHtml(o) {
+  return `<section class="label">
+    <div class="from"><b>ผู้ส่ง:</b> ${esc(SHOP.name)} โทร ${esc(SHOP.phone)}<br>${esc(SHOP.address)}</div>
+    <div class="to-h">ผู้รับ</div>
+    <div class="to">${esc(o.name)}</div>
+    <div class="tel">โทร ${esc(o.phone)}</div>
+    <div class="addr">${esc(o.address)}<br>${esc(o.province)}</div>
+    <div class="pc">${esc(o.postcode)}</div>
+    <div class="meta"><b>${esc(o.orderId)}</b><br>${o.items.map((i) => esc(i.sku) + ' ' + esc(pinfo(i.sku).name) + ' × ' + i.qty).join('<br>')}
+      ${tracking[o.orderId] ? '<br>พัสดุ: ' + esc(tracking[o.orderId]) : ''}</div>
+  </section>`;
+}
+
+/* ---------- 4) ส่งแล้ว ---------- */
+function viewDone() {
+  const list = byStatus('shipped').slice().reverse().slice(0, 50);
+  if (!list.length) return '<div class="empty">ยังไม่มีออเดอร์ที่ส่งแล้ว</div>';
+  return list.map((o) => `<div class="card"><div class="row"><span class="oid">${esc(o.orderId)}</span><span class="muted">${esc(o.name)}</span>
+    <span class="spacer"></span><span class="status">${o.tracking ? 'พัสดุ ' + esc(o.tracking) : 'ยังไม่ใส่เลขพัสดุ'}</span></div></div>`).join('');
+}
+
+/* ---------- events ---------- */
+async function setStatus(orderIds, status, extra = {}) {
+  try {
+    for (const id of orderIds) await api('/api/orders', { method: 'POST', body: JSON.stringify({ orderId: id, status, ...(extra[id] !== undefined ? { tracking: extra[id] } : {}) }) });
+    await load();
+    toast('บันทึกแล้ว');
+  } catch (e) { toast(e.message, true); await load().catch(() => {}); }
+}
+
+$('#view').addEventListener('change', (e) => {
+  const t = e.target;
+  if (t.dataset.pick) { t.checked ? picked.add(t.dataset.pick) : picked.delete(t.dataset.pick); render(); }
+  if (t.dataset.label) { t.checked ? labelSel.add(t.dataset.label) : labelSel.delete(t.dataset.label); render(); }
+});
+$('#view').addEventListener('input', (e) => {
+  if (e.target.dataset.track !== undefined) tracking[e.target.dataset.track] = e.target.value.trim();
+});
+$('#view').addEventListener('keydown', (e) => {
+  if (e.target.matches('[data-scan]') && e.key === 'Enter') {
+    e.preventDefault();
+    const v = e.target.value; if (!v.trim()) return;
+    scanSku(e.target.closest('[data-order]').dataset.order, v, e.target.closest('.card'));
+  }
+  if (e.target.matches('[data-tap]') && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); e.target.click(); }
+});
+$('#view').addEventListener('click', async (e) => {
+  const b = e.target;
+  const tap = b.closest('[data-tap]');
+  if (tap) return scanSku(tap.closest('[data-order]').dataset.order, tap.dataset.tap, tap.closest('.card'));
+  if (b.matches('[data-pickall]')) { byStatus('new').forEach((o) => picked.add(o.orderId)); return render(); }
+  if (b.matches('[data-markpicked]')) { const ids = [...picked]; picked.clear(); return setStatus(ids, 'picked'); }
+  if (b.dataset.cancel && confirm('ยกเลิกออเดอร์ ' + b.dataset.cancel + ' และคืนสต็อก?')) return setStatus([b.dataset.cancel], 'cancelled');
+  if (b.dataset.markpacked) { delete scanned[b.dataset.markpacked]; return setStatus([b.dataset.markpacked], 'packed'); }
+  if (b.matches('[data-labelall]')) { byStatus('packed').forEach((o) => labelSel.add(o.orderId)); return render(); }
+  if (b.matches('[data-print]')) {
+    const sel = byStatus('packed').filter((o) => labelSel.has(o.orderId));
+    $('#printArea').innerHTML = sel.map(labelHtml).join('');
+    return window.print();
+  }
+  if (b.dataset.markshipped) {
+    const id = b.dataset.markshipped;
+    labelSel.delete(id);
+    return setStatus([id], 'shipped', { [id]: tracking[id] || '' });
+  }
+});
+
+(async function init() {
+  if (!token) { $('#loginBox').hidden = false; return; }
+  try { await load(); $('#app').hidden = false; }
+  catch (e) { $('#loginBox').hidden = false; $('#loginErr').textContent = e.message; }
+})();
+</script>
+</body>
+</html>

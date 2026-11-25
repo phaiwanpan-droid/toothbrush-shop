@@ -1,0 +1,7 @@
+{
+  "name": "toothbrush-shop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Landing page + Google Sheet orders + pick/pack/label admin",
+  "engines": { "node": ">=18" }
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="แปรงสีฟันไม้ไผ่ ขนนุ่มพิเศษ">
+<rect width="600" height="600" fill="#DDF1EA"/>
+<circle cx="300" cy="300" r="235" fill="#F4FAF8"/>
+<g transform="rotate(-38 300 300)">
+<rect x="50" y="274" width="340" height="52" rx="26" fill="#C99B5F"/>
+<path d="M130 274v52M215 274v52M300 274v52" stroke="#A97B42" stroke-width="5" opacity=".7"/>
+<rect x="380" y="286" width="70" height="28" rx="12" fill="#B98A50"/>
+<rect x="436" y="262" width="118" height="76" rx="30" fill="#F2E6D0"/>
+<rect x="448.0" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="459.5" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="471.0" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="482.5" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="494.0" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="505.5" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="517.0" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="528.5" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/><rect x="540.0" y="226" width="7" height="40" rx="3.5" fill="#2B3A3F"/>
+</g>
+</svg>
